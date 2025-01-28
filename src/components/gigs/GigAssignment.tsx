@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useUser } from '@/hooks/useUser';
-import type { User, Gig, GigApplication, Milestone } from '@/types';
+import type { User, Gig, GigApplication } from '@/types';
 import toast from 'react-hot-toast';
 
 interface Props {
@@ -91,32 +91,33 @@ export default function GigAssignment({ gig, onUpdate }: Props) {
     });
   };
 
-  const fetchApplications = async () => {
-    const applicationsRef = collection(db, 'applications');
-    const q = query(applicationsRef, where('gigId', '==', gig.id));
-    const snapshot = await getDocs(q);
-    
-    const applications = await Promise.all(
-      snapshot.docs.map(async (docSnapshot) => {
-        const data = docSnapshot.data();
-        const appData = { id: docSnapshot.id, ...data } as GigApplication;
-        const freelancerRef = doc(db, 'users', appData.freelancerId);
-        const freelancerSnap = await getDoc(freelancerRef);
-        const freelancerData = freelancerSnap.data();
-        
-        return {
-          ...appData,
-          freelancer: freelancerSnap.exists() && freelancerData
-            ? { id: freelancerSnap.id, ...freelancerData } as User 
-            : undefined
-        };
-      })
-    );
-    
-    return applications;
-  };
+  
 
   useEffect(() => {
+    const fetchApplications = async () => {
+      const applicationsRef = collection(db, 'applications');
+      const q = query(applicationsRef, where('gigId', '==', gig.id));
+      const snapshot = await getDocs(q);
+      
+      const applications = await Promise.all(
+        snapshot.docs.map(async (docSnapshot) => {
+          const data = docSnapshot.data();
+          const appData = { id: docSnapshot.id, ...data } as GigApplication;
+          const freelancerRef = doc(db, 'users', appData.freelancerId);
+          const freelancerSnap = await getDoc(freelancerRef);
+          const freelancerData = freelancerSnap.data();
+          
+          return {
+            ...appData,
+            freelancer: freelancerSnap.exists() && freelancerData
+              ? { id: freelancerSnap.id, ...freelancerData } as User 
+              : undefined
+          };
+        })
+      );
+      
+      return applications;
+    };
     const loadData = async () => {
       if (!user) return;
 

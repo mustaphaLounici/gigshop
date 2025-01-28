@@ -21,11 +21,11 @@ export function useUser() {
       }
 
       try {
-        const userDoc = await getDoc(doc(db, 'users', authUser.uid));
+        const userDoc = await getDoc(doc(db, 'users', authUser.id));
         if (userDoc.exists()) {
           setUser({
             ...userDoc.data(),
-            id: authUser.uid,
+            id: authUser.id,
           } as User);
         } else {
           setError(new Error('User document not found'));
