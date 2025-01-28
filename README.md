@@ -78,7 +78,7 @@ GigShop is a modern web application built with Next.js and Firebase that connect
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/gigshop.git
+git clone https://github.com/mustaphaLounici/gigshop.git
 cd gigshop
 ```
 
@@ -151,4 +151,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, email support@gigshop.com or open an issue in the GitHub repository.
+For contact, email Mustapha Lounici lounicimustapha6@gmail.com or open an issue in the GitHub repository.
