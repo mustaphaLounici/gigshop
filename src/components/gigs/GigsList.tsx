@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useUser } from '@/hooks/useUser';
-import type { Gig, GigApplication } from '@/types';
+import type { Gig } from '@/types';
 import Link from 'next/link';
 
 const statusColors = {

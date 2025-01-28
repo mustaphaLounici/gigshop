@@ -2,14 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import toast from 'react-hot-toast';
 
 export default function Header() {
-  const pathname = usePathname();
   const { user } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -28,9 +26,7 @@ export default function Header() {
     return user.role === 'freelancer' ? '/dashboard/freelancer' : '/dashboard/client';
   };
 
-  const isActive = (path: string) => {
-    return pathname === path ? 'text-primary' : 'text-gray-700 hover:text-primary';
-  };
+
 
   return (
     <header className="bg-white border-b border-gray-200">
